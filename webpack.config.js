@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+require("babel-polyfill");
 
 module.exports = (env, argv) => {
   const isProductionBuild = argv.mode === "production";
@@ -86,8 +87,8 @@ module.exports = (env, argv) => {
 
   const config = {
     entry: {
-      main: "./src/main.js",
-      admin: "./src/admin/main.js",
+      main: ["babel-polyfill","./src/main.js"],
+      admin: ["babel-polyfill","./src/admin/main.js"],
     },
     output: {
       path: path.resolve(__dirname, "./dist"),
